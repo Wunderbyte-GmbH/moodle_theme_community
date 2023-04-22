@@ -26,4 +26,14 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
+    // Site breadcrumbs.
+    $name = 'theme_community/sitebreadcrumbs';
+    $title = get_string('sitebreadcrumbs', 'theme_community');
+    $description = get_string('sitebreadcrumbsdesc', 'theme_community');
+    $default = 'on';
+    $choices = array(
+        'off' => get_string('off', 'theme_community'),
+        'on' => get_string('on', 'theme_community'));
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $settings->add($setting);
 }

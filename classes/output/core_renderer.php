@@ -26,4 +26,18 @@
 namespace theme_community\output;
 
 class core_renderer extends \theme_boost\output\core_renderer {
+    /**
+     * This renders the navbar.
+     */
+    public function navbar(): string {
+        $retr = '';
+        if (!empty($this->page->theme->settings->sitebreadcrumbs)) {
+            if ($this->page->theme->settings->sitebreadcrumbs == 'on') {
+                $retr = $this->render_from_template('core/navbar', $this->page->navbar);
+            }
+        } else {
+            $retr = $this->render_from_template('core/navbar', $this->page->navbar);
+        }
+        return $retr;
+    }
 }
