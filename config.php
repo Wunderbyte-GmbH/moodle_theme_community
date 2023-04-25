@@ -38,18 +38,18 @@ $THEME->yuicssmodules = array();
 
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 
-$THEME->extrascsscallback = 'theme_moove_get_extra_scss';
-$THEME->prescsscallback = 'theme_moove_get_pre_scss';
+$THEME->extrascsscallback = 'theme_community_get_extra_scss';
+$THEME->prescsscallback = 'theme_community_get_pre_scss';
 $THEME->precompiledcsscallback = 'theme_moove_get_precompiled_css';
 $THEME->scss = function($theme) {
-    return theme_moove_get_main_scss_content($theme);
+    return theme_community_get_main_scss_content($theme);
 };
 $THEME->requiredblocks = '';
 $THEME->addblockposition = BLOCK_ADDBLOCK_POSITION_FLATNAV;
 $THEME->iconsystem = \core\output\icon_system::FONTAWESOME;
 $THEME->haseditswitch = true;
 $THEME->usescourseindex = true;
-// By default, all Moodle theme do not need their titles displayed.
+// By default, all Moodle themes do not need their titles displayed.
 $THEME->activityheaderconfig = [
     'notitle' => true
 ];
