@@ -78,15 +78,15 @@ class course_renderer extends \core_course_renderer {
             $this->page->set_title("$site->shortname: $strfulllistofcourses");
         }
 
-        // Print current category description
+        // Print current category description.
         $chelper = new \coursecat_helper();
         if ($description = $chelper->get_category_formatted_description($coursecat)) {
             $output .= $this->box($description, array('class' => 'generalbox info'));
         }
 
-        // Prepare parameters for courses and categories lists in the tree
-        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_AUTO)
-                ->set_attributes(array('class' => 'category-browse category-browse-'.$coursecat->id));
+        // Prepare parameters for courses and categories lists in the tree.
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_AUTO)->set_attributes(
+            array('class' => 'category-browse category-browse-'.$coursecat->id));
 
         $coursedisplayoptions = array();
         $catdisplayoptions = array();
@@ -115,7 +115,7 @@ class course_renderer extends \core_course_renderer {
             $coursedisplayoptions['viewmoreurl'] = new moodle_url($baseurl, array('browse' => 'courses'));
             $coursedisplayoptions['viewmoretext'] = new lang_string('viewallcourses');
         } else {
-            // we have a category that has both subcategories and courses, display pagination separately
+            // We have a category that has both subcategories and courses, display pagination separately.
             $coursedisplayoptions['viewmoreurl'] = new moodle_url($baseurl, array('browse' => 'courses', 'page' => 1));
             $catdisplayoptions['viewmoreurl'] = new moodle_url($baseurl, array('browse' => 'categories', 'page' => 1));
         }
