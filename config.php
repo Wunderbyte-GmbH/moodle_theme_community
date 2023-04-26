@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 $THEME->doctype = 'html5';
 $THEME->name = 'community';
 $THEME->parents = array('moove', 'boost');
-$THEME->sheets = array();
+$THEME->sheets = array('custom');
 $THEME->editor_sheets = [];
 $THEME->usefallback = false;
 $THEME->enable_dock = false;
