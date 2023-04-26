@@ -36,4 +36,15 @@ if ($ADMIN->fulltree) {
         'on' => get_string('on', 'theme_community'));
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $settings->add($setting);
+
+    // Course index category select.
+    $name = 'theme_community/courseindexcategoryselect';
+    $title = get_string('courseindexcategoryselect', 'theme_community');
+    $description = get_string('courseindexcategoryselectdesc', 'theme_community');
+    $default = 'off';
+    $choices = array(
+        'off' => get_string('off', 'theme_community'),
+        'on' => get_string('on', 'theme_community'));
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $settings->add($setting);
 }
