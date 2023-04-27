@@ -40,4 +40,19 @@ class core_renderer extends \theme_moove\output\core_renderer {
         }
         return $retr;
     }
+
+    /**
+     * Gets the theme setting value for the given theme setting name.
+     *
+     * @param string $name The name of the setting.
+     *
+     * return Setting value or null.
+     */
+    public function get_setting_value($name) {
+        $retr = null;
+        if (!empty($this->page->theme->settings->$name)) {
+            $retr = $this->page->theme->settings->$name;
+        }
+        return $retr;
+    }
 }
