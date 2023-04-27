@@ -27,8 +27,6 @@ namespace theme_community\output\core;
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once($CFG->dirroot.'/course/renderer.php');
-
 use core_course_category;
 use lang_string;
 use moodle_url;
@@ -39,7 +37,7 @@ use moodle_url;
  * @copyright  &copy; 2023-onwards G J Barnard.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
-class course_renderer extends \core_course_renderer {
+class course_renderer extends \theme_moove\output\core\course_renderer {
     /**
      * Renders HTML to display particular course category - list of it's subcategories and courses
      *
