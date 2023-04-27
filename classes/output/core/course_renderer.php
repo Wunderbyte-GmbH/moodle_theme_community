@@ -25,8 +25,6 @@
 
 namespace theme_community\output\core;
 
-defined('MOODLE_INTERNAL') || die;
-
 use core_course_category;
 use lang_string;
 use moodle_url;

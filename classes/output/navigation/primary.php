@@ -57,7 +57,7 @@ class primary extends \core\navigation\output\primary {
         $menudata = array_merge($this->get_primary_nav(), $this->get_custom_menu($output));
         if ($output->get_setting_value('navbarshowmycourses') == 'no') {
             $replacementmenudata = array();
-            foreach($menudata as $menuentry) {
+            foreach ($menudata as $menuentry) {
                 $menuentry = (object) $menuentry;
                 if ((!empty($menuentry->key)) && ($menuentry->key != 'mycourses')) {
                     $replacementmenudata[] = $menuentry;
