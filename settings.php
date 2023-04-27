@@ -48,10 +48,10 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $settings->add($setting);
 
-    // Navbar my courses.
-    $name = 'theme_community/navbarshowmycourses';
-    $title = get_string('navbarshowmycourses', 'theme_community');
-    $description = get_string('navbarshowmycoursesdesc', 'theme_community');
+    // My courses / Courses.
+    $name = 'theme_community/showmycourses';
+    $title = get_string('showmycourses', 'theme_community');
+    $description = get_string('showmycoursesdesc', 'theme_community');
     $default = 'no';
     $choices = array(
         'no' => get_string('no', 'theme_community'),

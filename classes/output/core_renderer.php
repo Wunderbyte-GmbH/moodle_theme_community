@@ -33,10 +33,12 @@ class core_renderer extends \theme_moove\output\core_renderer {
         $retr = '';
         if (!empty($this->page->theme->settings->sitebreadcrumbs)) {
             if ($this->page->theme->settings->sitebreadcrumbs == 'on') {
-                $retr = $this->render_from_template('core/navbar', $this->page->navbar);
+                $newnav = new \theme_community\communitynavbar($this->page, $this);
+                $retr = $this->render_from_template('core/navbar', $newnav);
             }
         } else {
-            $retr = $this->render_from_template('core/navbar', $this->page->navbar);
+            $newnav = new \theme_community\communitynavbar($this->page, $this);
+            $retr = $this->render_from_template('core/navbar', $newnav);
         }
         return $retr;
     }
