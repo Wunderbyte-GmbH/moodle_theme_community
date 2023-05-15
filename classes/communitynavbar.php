@@ -48,5 +48,8 @@ class communitynavbar extends \theme_boost\boostnavbar {
             $this->remove('mycourses');
             $this->remove('courses');
         }
+        if ($this->output->get_setting_value('showhome') == 'no') {
+            $this->remove('myhome');
+        }
     }
 }

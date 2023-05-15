@@ -58,4 +58,15 @@ if ($ADMIN->fulltree) {
         'yes' => get_string('yes', 'theme_community'));
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $settings->add($setting);
+
+    // Home.
+    $name = 'theme_community/showhome';
+    $title = get_string('showhome', 'theme_community');
+    $description = get_string('showhomedesc', 'theme_community');
+    $default = 'no';
+    $choices = array(
+        'no' => get_string('no', 'theme_community'),
+        'yes' => get_string('yes', 'theme_community'));
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $settings->add($setting);
 }

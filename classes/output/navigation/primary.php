@@ -55,12 +55,23 @@ class primary extends \core\navigation\output\primary {
         }
 
         $menudata = array_merge($this->get_primary_nav(), $this->get_custom_menu($output));
+        $keystoremove = array();
         if ($output->get_setting_value('showmycourses') == 'no') {
+            $keystoremove['mycourses'] = 'mycourses';
+        }
+        if ($output->get_setting_value('showhome') == 'no') {
+            $keystoremove['home'] = 'home';
+        }
+        if (!empty($keystoremove)) {
             $replacementmenudata = array();
             foreach ($menudata as $menuentry) {
                 $menuentry = (object) $menuentry;
-                if ((!empty($menuentry->key)) && ($menuentry->key != 'mycourses')) {
-                    $replacementmenudata[] = $menuentry;
+                if (!empty($menuentry->key)) {
+                    if (in_array($menuentry->key, $keystoremove)) {
+                        unset($keystoremove[$menuentry->key]);
+                    } else {
+                        $replacementmenudata[] = $menuentry;
+                    }
                 }
             }
             $menudata = $replacementmenudata;

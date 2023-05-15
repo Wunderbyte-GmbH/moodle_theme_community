@@ -46,6 +46,7 @@ $string['on'] = 'On';
 $string['no'] = 'No';
 $string['yes'] = 'Yes';
 
+// Settings.
 // Navbar / Breadcrumb.
 $string['sitebreadcrumbs'] = 'Site breadcrumbs';
 $string['sitebreadcrumbsdesc'] = 'Turn the breadcrumbs on or off at the site level.';
@@ -57,6 +58,10 @@ $string['courseindexcategoryselectdesc'] = 'Show the category select on the cour
 // My / courses.
 $string['showmycourses'] = 'My courses / Courses';
 $string['showmycoursesdesc'] = 'Show \'My courses\' / \'Courses\' on the navbar and breadcrumb.';
+
+// Home.
+$string['showhome'] = 'Home';
+$string['showhomedesc'] = 'Show \'Home\' on the navbar and \'Dashboard\' on the breadcrumb.';
 
 // Privacy.
 $string['privacy:nop'] = 'The Community theme stores has settings that pertain to its configuration.  It also may inherit settings and user preferences from the parent Boost theme, please examine the \'Plugin privacy compliance registry\' for \'Boost\' for details.  For the settings, it is your responsibility to ensure that no user data is entered in any of the free text fields.  Setting a setting will result in that action being logged within the core Moodle logging system against the user whom changed it, this is outside of the themes control, please see the core logging system for privacy compliance for this.  When uploading images, you should avoid uploading images with embedded location data (EXIF GPS) included or other such personal data.  It would be possible to extract any location / personal data from the images.  Please examine the code carefully to be sure that it complies with your interpretation of your privacy laws.  I am not a lawyer and my analysis is based on my interpretation.  If you have any doubt then remove the theme forthwith.';
