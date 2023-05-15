@@ -69,4 +69,13 @@ if ($ADMIN->fulltree) {
         'yes' => get_string('yes', 'theme_community'));
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $settings->add($setting);
+
+    // Custom H5P CSS.
+    $name = 'theme_community/hvpcustomcss';
+    $title = get_string('hvpcustomcss', 'theme_community');
+    $description = get_string('hvpcustomcssdesc', 'theme_community');
+    $default = '';
+    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);
 }
