@@ -26,6 +26,23 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
+    // Parent theme
+    $themes = core_component::get_plugin_list('theme');
+    $supportedthemes = array('boost', 'moove');
+    $name = 'theme_community/parenttheme';
+    $title = get_string('parenttheme', 'theme_community');
+    $description = get_string('parentthemedesc', 'theme_community');
+    $default = 'boost';
+    $choices = array();
+    foreach ($themes as $theme => $themedir) {
+        if (($theme != 'community') && (in_array($theme, $supportedthemes))) {
+            $choices[$theme] = ucfirst(get_string('pluginname', 'theme_' . $theme));
+        }
+    }
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $setting->set_updatedcallback('purge_all_caches'); // Has to be for the config file?
+    $settings->add($setting);
+
     // Site breadcrumbs.
     $name = 'theme_community/sitebreadcrumbs';
     $title = get_string('sitebreadcrumbs', 'theme_community');

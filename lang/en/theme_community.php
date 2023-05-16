@@ -47,6 +47,10 @@ $string['no'] = 'No';
 $string['yes'] = 'Yes';
 
 // Settings.
+// Parnet theme.
+$string['parenttheme'] = 'Parent theme';
+$string['parentthemedesc'] = 'Select the parent theme.';
+
 // Navbar / Breadcrumb.
 $string['sitebreadcrumbs'] = 'Site breadcrumbs';
 $string['sitebreadcrumbsdesc'] = 'Turn the breadcrumbs on or off at the site level.';

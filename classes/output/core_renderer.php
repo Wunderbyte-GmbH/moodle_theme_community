@@ -26,13 +26,23 @@
 namespace theme_community\output;
 
 class core_renderer extends \theme_moove\output\core_renderer {
+
+    public function getlayoutfile(): string {
+        $themename = $this->get_setting_value('parenttheme');
+        if (empty($themename)) {
+            $themename = 'boost';
+        }
+        $this->page->theme->layouts[$this->page->pagelayout][$themename];
+    }
+
     /**
      * This renders the navbar.
      */
     public function navbar(): string {
         $retr = '';
-        if (!empty($this->page->theme->settings->sitebreadcrumbs)) {
-            if ($this->page->theme->settings->sitebreadcrumbs == 'on') {
+        $sitebreadcrumbs = $this->get_setting_value('sitebreadcrumbs');
+        if (!empty($sitebreadcrumbs)) {
+            if ($sitebreadcrumbs == 'on') {
                 $newnav = new \theme_community\communitynavbar($this->page, $this);
                 $retr = $this->render_from_template('core/navbar', $newnav);
             }
