@@ -30,8 +30,8 @@
  * @return string
  */
 function theme_community_get_main_scss_content($theme) {
-    $parenttheme = theme_config::load('moove');
-    return theme_moove_get_main_scss_content($parenttheme);
+    $toolbox = \theme_community\toolbox::get_instance();
+    return $toolbox->getparentmainscsscontent();
 }
 
 /**
@@ -41,8 +41,8 @@ function theme_community_get_main_scss_content($theme) {
  * @return string SCSS.
  */
 function theme_community_get_extra_scss($theme) {
-    $parenttheme = theme_config::load('moove');
-    return theme_moove_get_extra_scss($parenttheme);
+    $toolbox = \theme_community\toolbox::get_instance();
+    return $toolbox->getparentextrascss();
 }
 
 /**
@@ -52,8 +52,8 @@ function theme_community_get_extra_scss($theme) {
  * @return string SCSS.
  */
 function theme_community_get_pre_scss($theme) {
-    $parenttheme = theme_config::load('moove');
-    return theme_moove_get_pre_scss($parenttheme);
+    $toolbox = \theme_community\toolbox::get_instance();
+    return $toolbox->getparentprescss();
 }
 
 /**
