@@ -39,8 +39,7 @@ $THEME->yuicssmodules = array();
 
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 
-$testing = $toolbox->getlayouts();
-//$THEME->layouts = $toolbox->getlayouts();
+$THEME->layouts = $toolbox->getlayouts();
 
 // Boost layouts....
 /*
