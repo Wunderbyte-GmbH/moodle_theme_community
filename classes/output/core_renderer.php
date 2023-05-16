@@ -27,14 +27,6 @@ namespace theme_community\output;
 
 class core_renderer extends \theme_moove\output\core_renderer {
 
-    public function getlayoutfile(): string {
-        $themename = $this->get_setting_value('parenttheme');
-        if (empty($themename)) {
-            $themename = 'boost';
-        }
-        $this->page->theme->layouts[$this->page->pagelayout][$themename];
-    }
-
     /**
      * This renders the navbar.
      */
