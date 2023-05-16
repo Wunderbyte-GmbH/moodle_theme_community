@@ -44,6 +44,11 @@ class toolbox {
     protected $theconfig = null;
 
     /**
+     * @var string The parent theme name.
+     */
+    protected $parentname = null;
+
+    /**
      * This is a lonely object.
      */
     private function __construct() {
@@ -100,11 +105,27 @@ class toolbox {
         }
     }
 
-    public function getlayouts(): array {
+    private function getparentthemename(): string {
         $themename = $this->get_config_setting('parenttheme');
         if (empty($themename)) {
             $themename = 'boost';
         }
+        return $themename;
+    }
+
+    public function getparents(): array {
+        $parents = array();
+        $themename = $this->getparentthemename();
+        if ($themename != 'boost') {
+            $parents[] = $themename;
+        }
+        $parents[] = 'boost';
+
+        return $parents;
+    }
+
+    public function getlayouts(): array {
+        $themename = $this->getparentthemename();
         $methodname = $themename.'layouts';
         return call_user_func(array($this, $methodname));
     }
