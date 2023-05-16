@@ -27,7 +27,8 @@ defined('MOODLE_INTERNAL') || die;
 
 $THEME->doctype = 'html5';
 $THEME->name = 'community';
-$THEME->parents = array('moove', 'boost');
+$toolbox = \theme_community\toolbox::get_instance();
+$THEME->parents = $toolbox->getparents();
 $THEME->sheets = array('custom');
 $THEME->editor_sheets = [];
 $THEME->usefallback = false;
@@ -38,9 +39,11 @@ $THEME->yuicssmodules = array();
 
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 
+$THEME->layouts = $toolbox->getlayouts();
+
 $THEME->extrascsscallback = 'theme_community_get_extra_scss';
 $THEME->prescsscallback = 'theme_community_get_pre_scss';
-$THEME->precompiledcsscallback = 'theme_moove_get_precompiled_css';
+$THEME->precompiledcsscallback = $toolbox->getprecompiledcsscallback();
 $THEME->scss = function($theme) {
     return theme_community_get_main_scss_content($theme);
 };

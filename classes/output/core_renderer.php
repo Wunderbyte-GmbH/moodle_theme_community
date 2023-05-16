@@ -25,36 +25,24 @@
 
 namespace theme_community\output;
 
-class core_renderer extends \theme_moove\output\core_renderer {
-    /**
-     * This renders the navbar.
-     */
-    public function navbar(): string {
-        $retr = '';
-        if (!empty($this->page->theme->settings->sitebreadcrumbs)) {
-            if ($this->page->theme->settings->sitebreadcrumbs == 'on') {
-                $newnav = new \theme_community\communitynavbar($this->page, $this);
-                $retr = $this->render_from_template('core/navbar', $newnav);
-            }
-        } else {
-            $newnav = new \theme_community\communitynavbar($this->page, $this);
-            $retr = $this->render_from_template('core/navbar', $newnav);
-        }
-        return $retr;
-    }
+defined('MOODLE_INTERNAL') || die;
 
-    /**
-     * Gets the theme setting value for the given theme setting name.
-     *
-     * @param string $name The name of the setting.
-     *
-     * return Setting value or null.
-     */
-    public function get_setting_value($name) {
-        $retr = null;
-        if (!empty($this->page->theme->settings->$name)) {
-            $retr = $this->page->theme->settings->$name;
+$toolbox = \theme_community\toolbox::get_instance();
+$parentthemename = $toolbox->getparentthemename();
+
+switch($parentthemename) {
+    case 'moove':
+        class core_renderer extends \theme_moove\output\core_renderer {
+            use core_renderer_trait;
         }
-        return $retr;
-    }
+        break;
+    case 'musi':
+        class core_renderer extends \theme_musi\output\core_renderer {
+            use core_renderer_trait;
+        }
+        break;
+    default:
+        class core_renderer extends \theme_boost\output\core_renderer {
+            use core_renderer_trait;
+        }
 }

@@ -42,7 +42,8 @@ trait hvp_toolbox {
      * @param string $embedtype How the H5P is displayed.
      */
     protected function chvp_alter_styles(&$styles, $libraries, $embedtype) {
-        $content = theme_community_get_setting('hvpcustomcss');
+        $toolbox = \theme_community\toolbox::get_instance();
+        $content = $toolbox->get_setting('hvpcustomcss');
         if (!empty($content)) {
             $styles[] = (object) array(
                 'path' => $this->get_style_url($content),
