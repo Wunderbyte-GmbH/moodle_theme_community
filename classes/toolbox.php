@@ -93,7 +93,7 @@ class toolbox {
      * Get theme setting.
      * @param string $setting
      * @param string $format = false
-    */
+     */
     public function get_setting($setting, $format = false) {
         if (empty($this->theconfig)) {
             $this->theconfig = theme_config::load('community');

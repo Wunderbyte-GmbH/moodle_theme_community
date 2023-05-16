@@ -25,6 +25,8 @@
 
 namespace theme_community\output;
 
+defined('MOODLE_INTERNAL') || die;
+
 $toolbox = \theme_community\toolbox::get_instance();
 $parentthemename = $toolbox->getparentthemename();
 

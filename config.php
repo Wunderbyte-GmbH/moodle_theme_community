@@ -43,7 +43,7 @@ $THEME->layouts = $toolbox->getlayouts();
 
 $THEME->extrascsscallback = 'theme_community_get_extra_scss';
 $THEME->prescsscallback = 'theme_community_get_pre_scss';
-$THEME->precompiledcsscallback =  $toolbox->getprecompiledcsscallback();
+$THEME->precompiledcsscallback = $toolbox->getprecompiledcsscallback();
 $THEME->scss = function($theme) {
     return theme_community_get_main_scss_content($theme);
 };
