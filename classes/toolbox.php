@@ -112,7 +112,7 @@ class toolbox {
         }
     }
 
-    private function getparentthemename(): string {
+    public function getparentthemename(): string {
         $themename = $this->get_config_setting('parenttheme');
         if (empty($themename)) {
             $themename = 'boost';

@@ -25,38 +25,17 @@
 
 namespace theme_community\output;
 
-class core_renderer extends \theme_moove\output\core_renderer {
+$toolbox = \theme_community\toolbox::get_instance();
+$parentthemename = $toolbox->getparentthemename();
 
-    /**
-     * This renders the navbar.
-     */
-    public function navbar(): string {
-        $retr = '';
-        $sitebreadcrumbs = $this->get_setting_value('sitebreadcrumbs');
-        if (!empty($sitebreadcrumbs)) {
-            if ($sitebreadcrumbs == 'on') {
-                $newnav = new \theme_community\communitynavbar($this->page, $this);
-                $retr = $this->render_from_template('core/navbar', $newnav);
-            }
-        } else {
-            $newnav = new \theme_community\communitynavbar($this->page, $this);
-            $retr = $this->render_from_template('core/navbar', $newnav);
+switch($parentthemename) {
+    case 'moove':
+        class core_renderer extends \theme_moove\output\core_renderer {
+            use core_renderer_trait;
         }
-        return $retr;
-    }
-
-    /**
-     * Gets the theme setting value for the given theme setting name.
-     *
-     * @param string $name The name of the setting.
-     *
-     * return Setting value or null.
-     */
-    public function get_setting_value($name) {
-        $retr = null;
-        if (!empty($this->page->theme->settings->$name)) {
-            $retr = $this->page->theme->settings->$name;
+        break;
+    default:
+        class core_renderer extends \theme_boost\output\core_renderer {
+            use core_renderer_trait;
         }
-        return $retr;
-    }
 }
