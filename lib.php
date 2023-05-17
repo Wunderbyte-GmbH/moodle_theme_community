@@ -69,7 +69,8 @@ function theme_community_serve_hvp_css($filename, $theme) {
     $PAGE->set_context(context_system::instance());
     $themename = $theme->name;
 
-    $content = theme_community_get_setting('hvpcustomcss');
+    $toolbox = \theme_community\toolbox::get_instance();
+    $content = $toolbox->get_setting('hvpcustomcss');
     $md5content = md5($content);
     $md5stored = get_config('theme_'.$themename, 'hvpccssmd5');
     if ((empty($md5stored)) || ($md5stored != $md5content)) {
@@ -104,30 +105,6 @@ function theme_community_serve_hvp_css($filename, $theme) {
     echo $content;
 
     die;
-}
-
-/**
- * Get theme setting.
- * @param string $setting
- * @param string $format = false
- */
-function theme_community_get_setting($setting, $format = false) {
-    static $theme;
-    if (empty($theme)) {
-        $theme = theme_config::load('community');
-    }
-
-    if (empty($theme->settings->$setting)) {
-        return false;
-    } else if (!$format) {
-        return $theme->settings->$setting;
-    } else if ($format === 'format_text') {
-        return format_text($theme->settings->$setting, FORMAT_PLAIN);
-    } else if ($format === 'format_html') {
-        return format_text($theme->settings->$setting, FORMAT_HTML, array('trusted' => true));
-    } else {
-        return format_string($theme->settings->$setting);
-    }
 }
 
 /**
