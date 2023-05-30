@@ -79,22 +79,20 @@ $templatecontext = [
     'footnote' => $theme->settings->footnote,
     'scrollspy' => scrollspy_entries(),
 ];
-//var_dump($OUTPUT->should_display_navbar_logo);
-
 
 echo $OUTPUT->render_from_template('theme_musi/user_dashboard', $templatecontext);
 
-function scrollspy_entries(){
+function scrollspy_entries() {
     $theme = \theme_config::load('musi');
     $scrollspy = array();
     try {
         if (strlen($theme->settings->dashboard_scrollspy)) {
             $entries = new \SimpleXMLElement($theme->settings->dashboard_scrollspy);
             foreach ($entries->entry as $entry) {
-                $scrollspy_entry['name'] = $entry->name;
-                $scrollspy_entry['icon'] = $entry->icon;
-                $scrollspy_entry['anchor'] = $entry->anchor;
-                $scrollspy[] = $scrollspy_entry;
+                $scrollspyentry['name'] = $entry->name;
+                $scrollspyentry['icon'] = $entry->icon;
+                $scrollspyentry['anchor'] = $entry->anchor;
+                $scrollspy[] = $scrollspyentry;
             }
             return $scrollspy;
         }

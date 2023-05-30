@@ -83,7 +83,5 @@ $templatecontext = [
     'addblockbutton' => $addblockbutton,
     'footnote' => $theme->settings->footnote,
 ];
-//var_dump($OUTPUT->should_display_navbar_logo);
-
 
 echo $OUTPUT->render_from_template('theme_musi/columns2', $templatecontext);
