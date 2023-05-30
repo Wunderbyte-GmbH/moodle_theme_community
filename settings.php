@@ -35,8 +35,7 @@ if ($ADMIN->fulltree) {
     $default = 'boost';
     $choices = array();
     foreach ($themes as $theme => $themedir) {
-        //if (($theme != 'community') && (in_array($theme, $supportedthemes))) {
-        if ($theme != 'community') {
+        if (($theme != 'community') && (in_array($theme, $supportedthemes))) {
             $choices[$theme] = ucfirst(get_string('pluginname', 'theme_' . $theme));
         }
     }
