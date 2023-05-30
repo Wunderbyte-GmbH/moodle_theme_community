@@ -36,6 +36,11 @@ switch($parentthemename) {
             use core_renderer_trait;
         }
         break;
+    case 'musi':
+        class core_renderer extends \theme_musi\output\core_renderer {
+            use core_renderer_trait;
+        }
+        break;
     default:
         class core_renderer extends \theme_boost\output\core_renderer {
             use core_renderer_trait;

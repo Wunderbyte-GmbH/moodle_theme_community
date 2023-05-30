@@ -134,7 +134,7 @@ class toolbox {
     public function getlayouts(): array {
         $themename = $this->getparentthemename();
         $methodname = $themename.'layouts';
-        if (function_exists($methodname)) {
+        if (method_exists($this, $methodname)) {
             return call_user_func(array($this, $methodname));
         }
         return call_user_func(array($this, 'boostlayouts'));
@@ -409,6 +409,57 @@ class toolbox {
         );
     }
 
+    private function musilayouts(): array {
+        return array(
+            'login' => array(
+                'file' => 'login.php',
+                'regions' => array(),
+                'options' => array('langmenu' => true),
+            ),
+            // The site home page.
+            'base' => array(
+                'file' => 'musi/columns2.php',
+                'regions' => array(),
+                'defaultregion' => 'side-pre',
+            ),
+            'frontpage' => array(
+                'file' => 'musi/frontpage.php',
+                'regions' => array('side-pre'),
+                'defaultregion' => 'side-pre',
+            ),
+            'standard' => array(
+                'file' => 'musi/columns2.php',
+                'regions' => array('side-pre'),
+                'defaultregion' => 'side-pre',
+            ),
+            'course' => array(
+                'file' => 'musi/columns2.php',
+                'regions' => array('side-pre'),
+                'defaultregion' => 'side-pre',
+            ),
+            'mydashboard' => array(
+                'file' => 'musi/user_dashboard.php',
+                'regions' => array('side-pre'),
+                'defaultregion' => 'side-pre',
+            ),
+            'incourse' => array(
+                'file' => 'musi/columns2.php',
+                'regions' => array('side-pre'),
+                'defaultregion' => 'side-pre',
+            ),
+            'coursecategory' => array(
+                'file' => 'musi/columns2.php',
+                'regions' => array('side-pre'),
+                'defaultregion' => 'side-pre',
+            ),
+            'admin' => array(
+                'file' => 'musi/columns2.php',
+                'regions' => array('side-pre'),
+                'defaultregion' => 'side-pre',
+            )
+        );
+    }
+
     public function getprecompiledcsscallback(): string {
         $themename = $this->getparentthemename();
         switch($themename) {
@@ -435,6 +486,9 @@ class toolbox {
         switch($parentthemename) {
             case 'moove':
                 $scss = theme_moove_get_main_scss_content($parenttheme);
+                break;
+            case 'musi':
+                $scss = theme_musi_get_main_scss_content($parenttheme);
                 break;
             default:
                 $scss = theme_boost_get_main_scss_content($parenttheme);

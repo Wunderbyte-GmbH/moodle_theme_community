@@ -4,6 +4,7 @@ Version Information
 Version 400.0.3
 ---------------
 1. Add 'parenttheme' setting for dynamic parent theme support.  Initial supported parents: Moove and Boost.
+2. Add 'Musi' as a supported parent theme.
 
 Version 400.0.2
 ---------------

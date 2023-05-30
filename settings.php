@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
     // Parent theme.
     $themes = core_component::get_plugin_list('theme');
-    $supportedthemes = array('boost', 'moove');
+    $supportedthemes = array('boost', 'moove', 'musi');
     $name = 'theme_community/parenttheme';
     $title = get_string('parenttheme', 'theme_community');
     $description = get_string('parentthemedesc', 'theme_community');
