@@ -134,7 +134,10 @@ class toolbox {
     public function getlayouts(): array {
         $themename = $this->getparentthemename();
         $methodname = $themename.'layouts';
-        return call_user_func(array($this, $methodname));
+        if (function_exists($methodname)) {
+            return call_user_func(array($this, $methodname));
+        }
+        return call_user_func(array($this, 'boostlayouts'));
     }
 
     private function boostlayouts(): array {
