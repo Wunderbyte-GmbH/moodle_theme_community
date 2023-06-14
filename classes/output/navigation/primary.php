@@ -65,13 +65,24 @@ class primary extends \core\navigation\output\primary {
         if (!empty($keystoremove)) {
             $replacementmenudata = array();
             foreach ($menudata as $menuentry) {
-                $menuentry = (object) $menuentry;
-                if (!empty($menuentry->key)) {
-                    if (in_array($menuentry->key, $keystoremove)) {
-                        unset($keystoremove[$menuentry->key]);
+                $key = '';
+                if (is_array($menuentry)) {
+                    if (array_key_exists('key', $menuentry)) {
+                        $key = $menuentry['key'];
+                    }
+                } else if (is_object($menuentry)) {
+                    if (!empty($menuentry->key)) {
+                        $key = $menuentry->key;
+                    }
+                }
+                if (!empty($key)) {
+                    if (in_array($key, $keystoremove)) {
+                        unset($keystoremove[$key]);
                     } else {
                         $replacementmenudata[] = $menuentry;
                     }
+                } else {
+                    $replacementmenudata[] = $menuentry;
                 }
             }
             $menudata = $replacementmenudata;
