@@ -87,9 +87,9 @@ class primary extends \core\navigation\output\primary {
             }
             $menudata = $replacementmenudata;
         }
+        $mobileprimarynav = $menudata;
         $menudata = (object) $menudata;
         $moremenu = new \core\navigation\output\more_menu($menudata, 'navbar-nav', false);
-        $mobileprimarynav = array_merge($this->get_primary_nav(), $this->get_custom_menu($output));
 
         $languagemenu = new \core\output\language_menu($this->page);
 
