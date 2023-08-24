@@ -36,13 +36,8 @@ user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 user_preference_allow_ajax_update('drawer-open-index', PARAM_BOOL);
 user_preference_allow_ajax_update('drawer-open-block', PARAM_BOOL);
 
-if (isloggedin()) {
-    $courseindexopen = (get_user_preferences('drawer-open-index', true) == true);
-    $blockdraweropen = (get_user_preferences('drawer-open-block') == true);
-} else {
-    $courseindexopen = false;
-    $blockdraweropen = false;
-}
+$courseindexopen = false;
+$blockdraweropen = false;
 
 if (defined('BEHAT_SITE_RUNNING')) {
     $blockdraweropen = true;
@@ -120,11 +115,13 @@ $templatecontext = [
 $themesettings = new \theme_moove\util\settings();
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
-
 if (isloggedin()) {
-    echo $OUTPUT->render_from_template('theme_moove/drawers', $templatecontext);
+    $templatecontext = array_merge($templatecontext, $themesettings->frontpage());
+    $templatecontext['slidercount'] = 0;
+    $templatecontext['displaymarketingbox'] = 0;
+    $templatecontext['numbersfrontpage'] = 0;
+    echo $OUTPUT->render_from_template('theme_moove/frontpage', $templatecontext);
 } else {
     $templatecontext = array_merge($templatecontext, $themesettings->frontpage());
-
     echo $OUTPUT->render_from_template('theme_moove/frontpage', $templatecontext);
 }
