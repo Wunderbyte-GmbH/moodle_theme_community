@@ -61,6 +61,7 @@ class primary extends \core\navigation\output\primary {
         }
         if ($output->get_setting_value('showhome') == 'no') {
             $keystoremove['home'] = 'home';
+            $keystoremove['myhome'] = 'myhome';
         }
         if (!empty($keystoremove)) {
             $replacementmenudata = array();
