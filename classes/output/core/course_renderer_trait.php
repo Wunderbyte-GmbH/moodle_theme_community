@@ -28,6 +28,11 @@ namespace theme_community\output\core;
 use core_course_category;
 use lang_string;
 use moodle_url;
+use html_writer;
+use coursecat_helper;
+use stdClass;
+use core_course_list_element;
+use theme_moove\util\course;
 
 /**
  * The course renderer.
@@ -122,5 +127,41 @@ trait course_renderer_trait {
         $output .= $this->coursecat_tree($chelper, $coursecat);
 
         return $output;
+    }
+
+    protected function coursecat_coursebox_content(\coursecat_helper $chelper, $course) {
+        if ($course instanceof stdClass) {
+            $course = new core_course_list_element($course);
+        }
+
+        $courseutil = new course($course);
+
+        $coursecontacts = $courseutil->get_course_contacts();
+
+        $courseenrolmenticons = $courseutil->get_enrolment_icons();
+        $courseenrolmenticons = !empty($courseenrolmenticons) ? $this->render_enrolment_icons($courseenrolmenticons) : false;
+
+        $courseprogress = $courseutil->get_progress();
+        $hasprogress = $courseprogress != null;
+        $category = $courseutil->get_category();
+
+        $data = [
+            'id' => $course->id,
+            'fullname' => $chelper->get_course_formatted_name($course),
+            'visible' => $course->visible,
+            'image' => $courseutil->get_summary_image(),
+            'summary' => $courseutil->get_summary($chelper),
+            'category' => $category,
+            'categoryid' => $category,
+            'customfields' => $courseutil->get_custom_fields(),
+            'hasprogress' => $hasprogress,
+            'progress' => (int) $courseprogress,
+            'hasenrolmenticons' => $courseenrolmenticons != false,
+            'enrolmenticons' => $courseenrolmenticons,
+            'hascontacts' => !empty($coursecontacts),
+            'contacts' => $coursecontacts
+        ];
+
+        return $this->render_from_template('theme_community/moove_coursecard', $data);
     }
 }
