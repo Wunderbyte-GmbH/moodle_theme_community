@@ -43,7 +43,7 @@ class communitynavbar extends \theme_boost\boostnavbar {
      */
     public function __construct(\moodle_page $page, $output) {
         $this->output = $output;
-        parent::__construct($page);
+        $this->page = $page;
 
         if (
             (empty($this->page->navbar->get_items())) &&
@@ -158,36 +158,21 @@ class communitynavbar extends \theme_boost\boostnavbar {
         global $CFG;
         $defaulthomepage = get_home_page();
         if ($defaulthomepage == HOMEPAGE_SITE) {
-            // The home element should be my moodle because the root element is the site.
+            $this->items[] = breadcrumb_navigation_node::create(
+                get_string('home'),
+                new moodle_url('/'),
+                navigation_node::TYPE_SETTING
+            );
+        } else {
             if (isloggedin() && !isguestuser()) {  // Makes no sense if you aren't logged in
                 if (!empty($CFG->enabledashboard)) {
-                    // Only add dashboard to home if it's enabled.
-                    //$this->rootnodes['home'] = $this->add(get_string('myhome'), new moodle_url('/my/'),
-                    //    self::TYPE_SETTING, null, 'myhome', new pix_icon('i/dashboard', ''));
                     $this->items[] = breadcrumb_navigation_node::create(
                         get_string('myhome'),
                         new moodle_url('/my/'),
                         navigation_node::TYPE_SETTING
-                    );    
+                    );
                 }
             }
-        } else {
-            // The home element should be the site because the root node is my moodle.
-            //$this->rootnodes['home'] = $this->add(get_string('sitehome'), new moodle_url('/'),
-            //    self::TYPE_SETTING, null, 'home', new pix_icon('i/home', ''));
-
-            $murl = new moodle_url('/');
-            if (!empty($CFG->defaulthomepage) &&
-                    ($CFG->defaulthomepage == HOMEPAGE_MY || $CFG->defaulthomepage == HOMEPAGE_MYCOURSES)) {
-                // We need to stop automatic redirection
-                //$this->rootnodes['home']->action->param('redirect', '0');
-                $murl->param('redirect', '0');
-            }
-            $this->items[] = breadcrumb_navigation_node::create(
-                get_string('home'),
-                $murl,
-                navigation_node::TYPE_SETTING
-            );    
         }
     }
 
