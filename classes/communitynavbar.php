@@ -16,6 +16,13 @@
 
 namespace theme_community;
 
+use breadcrumb_navigation_node;
+use core_course_category;
+use context_course;
+use context_coursecat;
+use moodle_url;
+use navigation_node;
+
 /**
  * Creates a navbar for Community that allows easy control of the navbar items.
  *
@@ -35,9 +42,153 @@ class communitynavbar extends \theme_boost\boostnavbar {
      * @param \moodle_page $page The current moodle page.
      */
     public function __construct(\moodle_page $page, $output) {
-
         $this->output = $output;
         parent::__construct($page);
+
+        if (
+            (empty($this->page->navbar->get_items())) &&
+            (!empty($this->page->cm->id)) &&
+            ($this->page->course->format == "singleactivity")
+        ) {
+            $node = $this->find_key_node($this->page->navigation, $this->page->cm->id);
+            if ($node !== false) {
+                $this->build_items_from_node($node);
+                if ($this->output->get_setting_value('showhome') == 'yes') {
+                    $this->add_home();
+                }
+                $last = reset($this->items);
+                if ($last) {
+                    $last->set_last(true);
+                }
+                $this->items = array_reverse($this->items);
+            }
+            $this->prepare_nodes_for_boost();
+        } else {
+            parent::__construct($page);
+        }
+    }
+
+    protected function find_key_node($node, $key) {
+        if ($node->key == $key) {
+            return $node;
+        } else {
+            foreach ($node->children as &$child) {
+                $outcome = $this->find_key_node($child, $key);
+                if ($outcome !== false) {
+                    return $outcome;
+                }
+            }
+        }
+        return false;
+    }
+
+    protected function build_items_from_node($navigationnode) {
+        global $CFG;
+        while ($navigationnode && $navigationnode->parent !== null) {
+            if (!$navigationnode->mainnavonly) {
+                $this->items[] = new breadcrumb_navigation_node($navigationnode);
+            }
+            if (!empty($CFG->navshowcategories) &&
+                $navigationnode->type === navigation_node::TYPE_COURSE &&
+                $navigationnode->parent->key === 'currentcourse') {
+                foreach ($this->get_course_categories() as $item) {
+                    $this->items[] = new breadcrumb_navigation_node($item);
+                }
+            }
+            $navigationnode = $navigationnode->parent;
+        }
+    }
+
+    /**
+     * Get the list of categories leading to this course.
+     *
+     * Adapted from reference version in navigationlib.php
+     *
+     * This function is used by {@link navbar::get_items()} to add back the "courses"
+     * node and category chain leading to the current course.  Note that this is only ever
+     * called for the current course, so we don't need to bother taking in any parameters.
+     *
+     * @return array
+     */
+    private function get_course_categories() {
+        global $CFG;
+        require_once($CFG->dirroot.'/course/lib.php');
+
+        $categories = array();
+        $cap = 'moodle/category:viewhiddencategories';
+        $showcategories = !core_course_category::is_simple_site();
+
+        if ($showcategories) {
+            foreach ($this->page->categories as $category) {
+                $context = context_coursecat::instance($category->id);
+                if (!core_course_category::can_view_category($category)) {
+                    continue;
+                }
+
+                $displaycontext = \context_helper::get_navigation_filter_context($context);
+                $url = new moodle_url('/course/index.php', ['categoryid' => $category->id]);
+                $name = format_string($category->name, true, ['context' => $displaycontext]);
+                $categorynode = breadcrumb_navigation_node::create($name, $url, navigation_node::TYPE_CATEGORY, null, $category->id);
+                if (!$category->visible) {
+                    $categorynode->hidden = true;
+                }
+                $categories[] = $categorynode;
+            }
+        }
+
+        // Don't show the 'course' node if enrolled in this course.
+        $coursecontext = context_course::instance($this->page->course->id);
+        if (!is_enrolled($coursecontext, null, '', true)) {
+            $courses = $this->page->navigation->get('courses');
+            if (!$courses) {
+                // Courses node may not be present.
+                $courses = breadcrumb_navigation_node::create(
+                    get_string('courses'),
+                    new moodle_url('/course/index.php'),
+                    navigation_node::TYPE_CONTAINER
+                );
+            }
+            $categories[] = $courses;
+        }
+
+        return $categories;
+    }
+
+    private function add_home() {
+        global $CFG;
+        $defaulthomepage = get_home_page();
+        if ($defaulthomepage == HOMEPAGE_SITE) {
+            // The home element should be my moodle because the root element is the site.
+            if (isloggedin() && !isguestuser()) {  // Makes no sense if you aren't logged in
+                if (!empty($CFG->enabledashboard)) {
+                    // Only add dashboard to home if it's enabled.
+                    //$this->rootnodes['home'] = $this->add(get_string('myhome'), new moodle_url('/my/'),
+                    //    self::TYPE_SETTING, null, 'myhome', new pix_icon('i/dashboard', ''));
+                    $this->items[] = breadcrumb_navigation_node::create(
+                        get_string('myhome'),
+                        new moodle_url('/my/'),
+                        navigation_node::TYPE_SETTING
+                    );    
+                }
+            }
+        } else {
+            // The home element should be the site because the root node is my moodle.
+            //$this->rootnodes['home'] = $this->add(get_string('sitehome'), new moodle_url('/'),
+            //    self::TYPE_SETTING, null, 'home', new pix_icon('i/home', ''));
+
+            $murl = new moodle_url('/');
+            if (!empty($CFG->defaulthomepage) &&
+                    ($CFG->defaulthomepage == HOMEPAGE_MY || $CFG->defaulthomepage == HOMEPAGE_MYCOURSES)) {
+                // We need to stop automatic redirection
+                //$this->rootnodes['home']->action->param('redirect', '0');
+                $murl->param('redirect', '0');
+            }
+            $this->items[] = breadcrumb_navigation_node::create(
+                get_string('home'),
+                $murl,
+                navigation_node::TYPE_SETTING
+            );    
+        }
     }
 
     /**

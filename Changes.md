@@ -1,6 +1,10 @@
 Version Information
 ===================
 
+Version 400.0.5
+---------------
+1. Add single activity breadcrumb.
+
 Version 400.0.4
 ---------------
 1. Fix 'showhome' setting not removing everything that it should.
