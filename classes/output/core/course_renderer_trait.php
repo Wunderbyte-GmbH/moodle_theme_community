@@ -30,7 +30,7 @@ use core_course_list_element;
 use lang_string;
 use moodle_url;
 use stdClass;
-use theme_moove\util\course;
+use theme_community\moove\util\course;
 
 /**
  * The course renderer.
