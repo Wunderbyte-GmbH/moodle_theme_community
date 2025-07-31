@@ -18,20 +18,17 @@
  * Community theme.
  *
  * @package    theme_community
- * @copyright  2023 G J Barnard.
- * @author     G J Barnard -
- *               {@link https://moodle.org/user/profile.php?id=442195}
- *               {@link https://gjbarnard.co.uk}
- * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+ * @copyright  &copy; 2023-onwards G J Barnard.
+ * @author     G J Barnard - {@link https://moodle.org/user/profile.php?id=442195}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_heading('theme_community_privacy', '',
-        get_string('privacy:note', 'theme_community')));
-
     // Parent theme.
+    $settings = new admin_settingpage('themesettingcommunity', 'Community');
+
     $themes = core_component::get_plugin_list('theme');
     $supportedthemes = array('boost', 'moove', 'musi');
     $name = 'theme_community/parenttheme';
